@@ -13,6 +13,19 @@ app.listen(2000, () => {
 
 // get mvps and their pts per game from the last inputted years
 
+
+app.get('/:year', (req, resp) => {
+    const year = req.params.year;
+    const sqlQuery = "SELECT * from player WHERE season_start >= YEAR(CURDATE()) - " + year + ";";
+    dbConnection.query(sqlQuery, (err, result) => {
+        if (err) {
+            return resp.status(400).json({error: "Error in the SQL statement."});
+        }
+        resp.setHeader('Query', sqlQuery);
+        return resp.status(200).json(result);
+    })
+})
+
 app.get('/mvp/pts/:year', (req, resp) => {
     const year = req.params.year;
     if (isNaN(year)) {
