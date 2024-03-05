@@ -28,3 +28,4 @@ app.get('/mvp/pts/:year', (req, resp) => {
         return resp.status(200).json(result);
     });
 });
+

@@ -37,7 +37,7 @@ function Graph() {
                     labels: players.map((player) => player.name + " " + player.season_end),
                     datasets: [
                         {
-                            label: 'Points',
+                            label: 'Average Points Per Game',
                             data: players.map((player) => player.pts),
                         },
                     ],
