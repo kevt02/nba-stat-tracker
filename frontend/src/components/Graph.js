@@ -4,11 +4,12 @@ import Chart from 'chart.js/auto';
 
 function Graph() {
     const [players, setPlayers] = useState([]);
-    const [year, setYear] = useState(1);
+    const [year, setYear] = useState(3);
     const chartRef = useRef(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setYear(e.target.value);
         try {
             const response = await axios.get(`http://localhost:2000/mvp/pts/${year}`);
             setPlayers(response.data);
@@ -39,6 +40,8 @@ function Graph() {
                         {
                             label: 'Average Points Per Game',
                             data: players.map((player) => player.pts),
+                            backgroundColor: "rgb(0,0,2550)",
+                            fontColor: "blue"
                         },
                     ],
                 },
@@ -50,12 +53,11 @@ function Graph() {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form className="slider">
                 <label>MVP average PPG from the last {year} years</label>
                 <br />
-                <input type="range" value={year} min="1" max="20" onChange={handleChange} />
+                <input type="range" value={year} min="3" max="20" onChange={handleSubmit} />
                 <br />
-                <button type="submit">Submit</button>
             </form>
             {/* <table className="container">
                 <thead>
